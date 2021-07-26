@@ -13,7 +13,7 @@ for i in range(n_games):
     score = 0
 
     while not done:
-        # env.render()
+        env.render()
         action = env.action_space.sample()
         obs, reward, done, info = env.step(action)
         score += reward

@@ -4,10 +4,10 @@ import matplotlib.pyplot as plt
 from q_learning_agent import Agent
 
 env = gym.make('FrozenLake-v0')
-n_games = 500000
+n_games = 5000
 win_prc_list = []
 scores = []
-agent = Agent(lr=0.001, gamma=0.9, eps_start=1, eps_end=0.01, eps_dec=0.999995, n_states=16, n_actions=4)
+agent = Agent(lr=0.001, gamma=0.9, eps_start=1, eps_end=0.01, eps_dec=0.9999995, n_states=16, n_actions=4)
 
 for i in range(n_games):
 	done = False
@@ -23,10 +23,10 @@ for i in range(n_games):
 	scores.append(score)
 
 	if i % 100 == 0:
-		win_prc = np.mean(scores[-100:]) * 100
+		win_prc = np.mean(scores[-100:])
 		win_prc_list.append(win_prc)
 	if i % 1000 == 0:
-		print('| game: {:10d}| win_prc: {:6.3f} | epsilon: {:2.8f} |'.format(i, win_prc, agent.epsilon))
+		print('| game: {:10d}| win_prc: {:2.2f} | epsilon: {:2.8f} |'.format(i, win_prc, agent.epsilon))
 env.close()
 
 plt.figure()

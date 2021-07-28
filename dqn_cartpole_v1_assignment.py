@@ -7,7 +7,7 @@ from utils import plot_learning_curve
 
 
 env = gym.make('CartPole-v1')
-n_games = 5000
+n_games = 1000
 win_prc = []
 scores = []
 eps_history = []

@@ -34,7 +34,7 @@ for i in range(n_games):
 env.close()
 
 filename = 'cartpole_naive_dqn.png'
-x = [i + 1 for i range(n_games)]
+x = [i + 1 for i in range(n_games)]
 plot_learning_curve(x, scores, eps_history, filename)
 		
 

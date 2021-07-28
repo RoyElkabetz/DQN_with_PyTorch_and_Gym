@@ -83,7 +83,7 @@ class DQNAgent:
 		q_pred = self.Q.forward(states)[actions]
 		q_next = self.Q.forward(next_states).max()
 		q_target = rewards + self.gamma * q_next
-		loss = self.Q.loss(q_target, q_pred).to(self.Q.device)
+		loss = self.Q.loss(q_pred, q_target).to(self.Q.device)
 		loss.backward()
 		self.Q.optimizer.step()
 		self.decerement_epsilon()

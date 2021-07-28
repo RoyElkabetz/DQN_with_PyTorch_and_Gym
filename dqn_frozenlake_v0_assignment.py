@@ -3,6 +3,7 @@ import torch as T
 import numpy as np
 import matplotlib.pyplot as plt
 from q_learning_agents import DQNAgent
+from utils import plot_learning_curve
 
 
 env = gym.make('CartPole-v1')

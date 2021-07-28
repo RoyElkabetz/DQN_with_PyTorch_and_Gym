@@ -46,8 +46,8 @@ class Agent:
 
 class DQNAgent:
 	"""docstring for DQNAgent"""
-	def __init__(self, input_dims, n_actions, lr=0.0001, gamma=0.9, epsilon=1., 
-				eps_min=0.001, eps_dec=0.999995):
+	def __init__(self, input_dims, n_actions, lr=0.0001, gamma=0.99, epsilon=1., 
+				eps_min=0.01, eps_dec=1e-5):
 		super().__init__()
 		self.input_dims = input_dims
 		self.lr = lr
@@ -61,23 +61,25 @@ class DQNAgent:
 
 	def choose_action(self, observation):
 		if np.random.rand() < self.epsilon:
-			return np.random.choice(self.action_space)
+			action = np.random.choice(self.action_space)
 		else:
 			state = T.tensor(observation, dtype=T.float).to(self.Q.device)
 			actions = self.Q.forward(state)
 			action = T.argmax(actions).item()
-			return action
+		return action
 
 	def decerement_epsilon(self):
-		self.epsilon = self.epsilon * self.eps_dec if self.epsilon > self.eps_min else self.eps_min
+		self.epsilon = self.epsilon - self.eps_dec if self.epsilon > self.eps_min else self.eps_min
 
 	def learn(self, state, action, reward, next_state):
+		self.Q.optimizer.zero_grad()
+
 		states = T.tensor(state, dtype=T.float).to(self.Q.device)
-		actions = T.tensor(action, dtype=T.long).to(self.Q.device)
-		rewards = T.tensor(reward, dtype=T.float).to(self.Q.device)
+		actions = T.tensor(action).to(self.Q.device)
+		rewards = T.tensor(reward).to(self.Q.device)
 		next_states = T.tensor(next_state, dtype=T.float).to(self.Q.device)
 
-		self.Q.optimizer.zero_grad()
+		
 		q_pred = self.Q.forward(states)[actions]
 		q_next = self.Q.forward(next_states).max()
 		q_target = rewards + self.gamma * q_next

@@ -100,3 +100,12 @@ class StackFrames(gym.ObservationWrapper):
 		self.stack.append(observation)
 
 		return np.array(self.stack).reshape(self.observation_space.low.shape)
+
+
+def make_env(env_name, shape=(84, 84, 1), repeat=4):
+	env = gym.make(env_name)
+	env = RepeatActionAndMaxFrame(env=env, repeat=repeat)
+	env = PreprocessFrame(shape=shape, env=env)
+	env = StackFrames(env=env, repeat=repeat)
+
+	return env

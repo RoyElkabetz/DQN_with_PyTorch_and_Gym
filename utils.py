@@ -33,17 +33,23 @@ def plot_learning_curve(x, scores, epsilons, filename):
 
 
 class RepeatActionAndMaxFrame(gym.Wrapper):
-	def __init__(self, env=None, repeat=4):
+	def __init__(self, env=None, repeat=4, clip_rewards=False,
+			 no_ops=0, fire_first=False):
 		super(RepeatActionAndMaxFrame, self).__init__(env)
 		self.repeat = repeat
 		self.shape = env.observation_space.low.shape
 		self.frame_buffer = np.zeros_like((2, self.shape))
+		self.clip_rewards = clip_rewards
+		self.no_ops = no_ops
+		self.fire_first = fire_first
 
 	def step(self, action):
 		t_reward = 0.0
 		done = False
 		for i in range(self.repeat):
 			obs, reward, done, info = self.env.step(action)
+			if self.clip_rewards:
+				reward = np.clip(np.array([reward]), -1, 1)[0]
 			t_reward += reward
 			idx = i % 2
 			self.frame_buffer[idx] = obs
@@ -55,6 +61,14 @@ class RepeatActionAndMaxFrame(gym.Wrapper):
 
 	def reset(self, **kwargs):
 		obs = self.env.reset()
+		no_ops = np.random.randint(self.no_ops) + 1 if self.no_ops > 0 else 0
+		for _ in range(no_ops):
+			_, _, done, _ = self.env.step(0)
+			if done:
+				self.env.reset()
+		if self.fire_first:
+			assert self.env.unwrapped.get_action_meaning()[1] == 'FIRE'
+			obs, _, _, _ = self.env.step(1)
 		self.frame_buffer = np.zeros_like((2, self.shape))
 		self.frame_buffer[0] = obs
 
@@ -102,10 +116,11 @@ class StackFrames(gym.ObservationWrapper):
 		return np.array(self.stack).reshape(self.observation_space.low.shape)
 
 
-def make_env(env_name, shape=(84, 84, 1), repeat=4):
+def make_env(env_name, shape=(84, 84, 1), repeat=4, clip_rewards=False,
+			 no_ops=0, fire_first=False):
 	env = gym.make(env_name)
-	env = RepeatActionAndMaxFrame(env=env, repeat=repeat)
-	env = PreprocessFrame(shape=shape, env=env)
-	env = StackFrames(env=env, repeat=repeat)
+	env = RepeatActionAndMaxFrame(env, repeat, clip_rewards, no_ops, fire_first)
+	env = PreprocessFrame(shape, env)
+	env = StackFrames(env, repeat)
 
 	return env

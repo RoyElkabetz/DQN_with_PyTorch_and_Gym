@@ -157,6 +157,7 @@ class DeepQNAgent:
 
 	def learn(self):
 		if self.learn_step_counter < self.batch_size:
+			self.learn_step_counter += 1
 			return
 
 		self.q_eval.optimizer.zero_grad()

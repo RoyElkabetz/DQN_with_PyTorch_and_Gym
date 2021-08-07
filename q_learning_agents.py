@@ -176,15 +176,3 @@ class DeepQNAgent:
 
 		self.decrement_epsilon()
 
-		
-
-
-
-
-
-
-
-
-
-
-		

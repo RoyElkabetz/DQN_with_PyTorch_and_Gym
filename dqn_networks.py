@@ -66,7 +66,7 @@ class DeepQNetwork(nn.Module):
 		print('... saving checkpoint ...')
 		T.save(self.state_dict(), self.checkpoint_file)
 
-	def laod_checkpoint(self):
+	def load_checkpoint(self):
 		print('... loading checkpoint ...')
 		self.load_state_dict(T.load(self.checkpoint_file))
 

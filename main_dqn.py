@@ -1,4 +1,5 @@
 import numpy as np
+import gym
 from q_learning_agents import DeepQNAgent
 from utils import plot_learning_curve, make_env
 

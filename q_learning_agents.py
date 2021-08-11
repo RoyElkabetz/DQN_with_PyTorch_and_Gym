@@ -260,8 +260,8 @@ class DoubleDeepQNAgent:
 		# Double Deep Q learning update rule
 		indices = np.arange(self.batch_size)
 		q_pred = self.q_eval(states)[indices, actions]
-		a_max_pred = self.q_eval(states_).max(dim=1)[1]
-		q_next = self.q_next(states_)[indices, a_max_pred]
+		max_actions = T.argmax(self.q_eval(states_), dim=1)
+		q_next = self.q_next(states_)[indices, max_actions]
 
 		q_next[dones] = 0.0
 		q_target = rewards + self.gamma * q_next

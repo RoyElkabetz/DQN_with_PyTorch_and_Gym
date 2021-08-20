@@ -1,5 +1,5 @@
 import numpy as np
-from networks import LinearDeepNetwork, DQNetwork, DuelingDQNetwork
+from networks import DQNetwork, DuelingDQNetwork
 import torch as T
 from replay_memory import ReplayBuffer
 
@@ -89,11 +89,149 @@ class DQNAgent(Agent):
         indices = np.arange(self.batch_size)
         q_pred = self.q_eval(states)[indices, actions]
         q_next = self.q_next(states_).max(dim=1)[0]
-
         q_next[dones] = 0.0
         q_target = rewards + self.gamma * q_next
         loss = self.q_eval.loss(q_pred, q_target).to(self.q_eval.device)
+
         loss.backward()
         self.q_eval.optimizer.step()
         self.learn_step_counter += 1
         self.decrement_epsilon()
+
+
+class DDQNAgent(Agent):
+    def __init__(self, *args, **kwargs):
+        super(DDQNAgent, self).__init__(*args, **kwargs)
+
+        self.q_eval = DQNetwork(self.input_dims, self.n_actions, self.lr,
+                                name=self.env_name + '_' + self.algo + '_q_eval',
+                                chkpt_dir=self.chkpt_dir)
+        self.q_next = DQNetwork(self.input_dims, self.n_actions, self.lr,
+                                name=self.env_name + '_' + self.algo + '_q_next',
+                                chkpt_dir=self.chkpt_dir)
+
+    def choose_action(self, observation):
+        if np.random.random() > self.epsilon:
+            state = T.tensor([observation], dtype=T.float).to(self.q_eval.device)
+            actions = self.q_eval.forward(state)
+            action = T.argmax(actions).item()
+        else:
+            action = np.random.choice(self.action_space)
+        return action
+
+    def learn(self):
+        if self.learn_step_counter < self.batch_size:
+            self.learn_step_counter += 1
+            return
+
+        self.q_eval.optimizer.zero_grad()
+        self.replace_target_network()
+        states, actions, rewards, states_, dones = self.sample_memory()
+
+        # Double Deep Q learning update rule
+        indices = np.arange(self.batch_size)
+        q_pred = self.q_eval(states)[indices, actions]
+        max_actions = T.argmax(self.q_eval(states_), dim=1)
+        q_next = self.q_next(states_)[indices, max_actions]
+        q_next[dones] = 0.0
+        q_target = rewards + self.gamma * q_next
+        loss = self.q_eval.loss(q_pred, q_target).to(self.q_eval.device)
+
+        loss.backward()
+        self.q_eval.optimizer.step()
+        self.learn_step_counter += 1
+        self.decrement_epsilon()
+
+
+class DuelingDQNAgent(Agent):
+    def __init__(self, *args, **kwargs):
+        super(DuelingDQNAgent, self).__init__(*args, **kwargs)
+
+        self.q_eval = DuelingDQNetwork(self.input_dims, self.n_actions, self.lr,
+                                       name=self.env_name + '_' + self.algo + '_q_eval',
+                                       chkpt_dir=self.chkpt_dir)
+        self.q_next = DuelingDQNetwork(self.input_dims, self.n_actions, self.lr,
+                                       name=self.env_name + '_' + self.algo + '_q_next',
+                                       chkpt_dir=self.chkpt_dir)
+
+    def choose_action(self, observation):
+        if np.random.random() > self.epsilon:
+            state = T.tensor([observation], dtype=T.float).to(self.q_eval.device)
+            _, advantage = self.q_eval.forward(state)
+            action = T.argmax(advantage).item()
+        else:
+            action = np.random.choice(self.action_space)
+        return action
+
+    def learn(self):
+        if self.learn_step_counter < self.batch_size:
+            self.learn_step_counter += 1
+            return
+
+        self.q_eval.optimizer.zero_grad()
+        self.replace_target_network()
+        states, actions, rewards, states_, dones = self.sample_memory()
+
+        # Dueling Deep Q learning update rule
+        indices = np.arange(self.batch_size)
+        V_s, A_s = self.q_eval.forward(states)
+        V_s_, A_s_ = self.q_next.forward(states_)
+        q_pred = T.add(V_s, (A_s - A_s.mean(dim=1, keepdim=True)))[indices, actions]
+        q_next = T.add(V_s_, (A_s_ - A_s_.mean(dim=1, keepdim=True))).max(dim=1)[0]
+        q_next[dones] = 0.0
+        q_target = rewards + self.gamma * q_next
+        loss = self.q_eval.loss(q_pred, q_target).to(self.q_eval.device)
+
+        loss.backward()
+        self.q_eval.optimizer.step()
+        self.learn_step_counter += 1
+        self.decrement_epsilon()
+
+
+class DuelingDDQNAgent(Agent):
+    def __init__(self, *args, **kwargs):
+        super(DuelingDDQNAgent, self).__init__(*args, **kwargs)
+
+        self.q_eval = DuelingDQNetwork(self.input_dims, self.n_actions, self.lr,
+                                       name=self.env_name + '_' + self.algo + '_q_eval',
+                                       chkpt_dir=self.chkpt_dir)
+        self.q_next = DuelingDQNetwork(self.input_dims, self.n_actions, self.lr,
+                                       name=self.env_name + '_' + self.algo + '_q_next',
+                                       chkpt_dir=self.chkpt_dir)
+
+    def choose_action(self, observation):
+        if np.random.random() > self.epsilon:
+            state = T.tensor([observation], dtype=T.float).to(self.q_eval.device)
+            _, advantages = self.q_eval.forward(state)
+            action = T.argmax(advantages).item()
+        else:
+            action = np.random.choice(self.action_space)
+        return action
+
+    def learn(self):
+        if self.learn_step_counter < self.batch_size:
+            self.learn_step_counter += 1
+            return
+
+        self.q_eval.optimizer.zero_grad()
+        self.replace_target_network()
+        states, actions, rewards, states_, dones = self.sample_memory()
+
+        # Dueling Double Deep Q learning update rule
+        indices = np.arange(self.batch_size)
+        V_s, A_s = self.q_eval.forward(states)
+        V_s_, A_s_ = self.q_next.forward(states_)
+        V_s_eval, A_s_eval = self.q_eval.forward(states_)
+        q_pred = T.add(V_s, (A_s - A_s.mean(dim=1, keepdim=True)))[indices, actions]
+        q_next = T.add(V_s_, (A_s_ - A_s_.mean(dim=1, keepdim=True)))
+        q_eval = T.add(V_s_eval, (A_s_eval - A_s_eval.mean(dim=1, keepdim=True)))
+        max_actions = T.argmax(q_eval, dim=1)
+        q_next[dones] = 0.0
+        q_target = rewards + self.gamma * q_next[indices, max_actions]
+        loss = self.q_eval.loss(q_pred, q_target).to(self.q_eval.device)
+
+        loss.backward()
+        self.q_eval.optimizer.step()
+        self.learn_step_counter += 1
+        self.decrement_epsilon()
+

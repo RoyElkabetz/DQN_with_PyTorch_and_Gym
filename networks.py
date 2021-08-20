@@ -24,7 +24,7 @@ class LinearDeepNetwork(nn.Module):
 		return actions
 
 
-class DeepQNetwork(nn.Module):
+class DQNetwork(nn.Module):
 	def __init__(self, input_dims, n_actions, lr, name, chkpt_dir):
 		super().__init__()
 		self.checkpoint_dir = chkpt_dir
@@ -71,7 +71,7 @@ class DeepQNetwork(nn.Module):
 		self.load_state_dict(T.load(self.checkpoint_file))
 
 
-class DuelingDeepQNetwork(nn.Module):
+class DuelingDQNetwork(nn.Module):
 	def __init__(self, input_dims, n_actions, lr, name, chkpt_dir):
 		super().__init__()
 		self.checkpoint_dir = chkpt_dir

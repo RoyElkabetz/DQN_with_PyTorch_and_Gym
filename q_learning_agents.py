@@ -1,5 +1,5 @@
 import numpy as np
-from dqn_networks import LinearDeepNetwork, DeepQNetwork, DuelingDeepQNetwork
+from networks import LinearDeepNetwork, DQNetwork, DuelingDQNetwork
 import torch as T
 from replay_memory import ReplayBuffer
 
@@ -109,12 +109,12 @@ class DeepQNAgent:
 
 		self.memory = ReplayBuffer(self.mem_size, self.input_dims, self.n_actions)
 
-		self.q_eval = DeepQNetwork(self.input_dims, self.n_actions, self.lr,
-									name=self.env_name + '_' + self.algo + '_q_eval',
-									chkpt_dir=self.chkpt_dir)
-		self.q_next = DeepQNetwork(self.input_dims, self.n_actions, self.lr,
-									name=self.env_name + '_' + self.algo + '_q_next',
-									chkpt_dir=self.chkpt_dir)
+		self.q_eval = DQNetwork(self.input_dims, self.n_actions, self.lr,
+								name=self.env_name + '_' + self.algo + '_q_eval',
+								chkpt_dir=self.chkpt_dir)
+		self.q_next = DQNetwork(self.input_dims, self.n_actions, self.lr,
+								name=self.env_name + '_' + self.algo + '_q_next',
+								chkpt_dir=self.chkpt_dir)
 
 	def choose_action(self, observation):
 		if np.random.random() > self.epsilon:
@@ -202,12 +202,12 @@ class DoubleDeepQNAgent:
 
 		self.memory = ReplayBuffer(self.mem_size, self.input_dims, self.n_actions)
 
-		self.q_eval = DeepQNetwork(self.input_dims, self.n_actions, self.lr,
-									name=self.env_name + '_' + self.algo + '_q_eval',
-									chkpt_dir=self.chkpt_dir)
-		self.q_next = DeepQNetwork(self.input_dims, self.n_actions, self.lr,
-									name=self.env_name + '_' + self.algo + '_q_next',
-									chkpt_dir=self.chkpt_dir)
+		self.q_eval = DQNetwork(self.input_dims, self.n_actions, self.lr,
+								name=self.env_name + '_' + self.algo + '_q_eval',
+								chkpt_dir=self.chkpt_dir)
+		self.q_next = DQNetwork(self.input_dims, self.n_actions, self.lr,
+								name=self.env_name + '_' + self.algo + '_q_next',
+								chkpt_dir=self.chkpt_dir)
 
 	def choose_action(self, observation):
 		if np.random.random() > self.epsilon:
@@ -296,12 +296,12 @@ class DuelingDeepQNAgent:
 
 		self.memory = ReplayBuffer(self.mem_size, self.input_dims, self.n_actions)
 
-		self.q_eval = DuelingDeepQNetwork(self.input_dims, self.n_actions, self.lr,
-										name=self.env_name + '_' + self.algo + '_q_eval',
-										chkpt_dir=self.chkpt_dir)
-		self.q_next = DuelingDeepQNetwork(self.input_dims, self.n_actions, self.lr,
-										name=self.env_name + '_' + self.algo + '_q_next',
-										chkpt_dir=self.chkpt_dir)
+		self.q_eval = DuelingDQNetwork(self.input_dims, self.n_actions, self.lr,
+									   name=self.env_name + '_' + self.algo + '_q_eval',
+									   chkpt_dir=self.chkpt_dir)
+		self.q_next = DuelingDQNetwork(self.input_dims, self.n_actions, self.lr,
+									   name=self.env_name + '_' + self.algo + '_q_next',
+									   chkpt_dir=self.chkpt_dir)
 
 	def choose_action(self, observation):
 		if np.random.random() > self.epsilon:
@@ -392,12 +392,12 @@ class DuelingDoubleDeepQNAgent:
 
 		self.memory = ReplayBuffer(self.mem_size, self.input_dims, self.n_actions)
 
-		self.q_eval = DuelingDeepQNetwork(self.input_dims, self.n_actions, self.lr,
-									name=self.env_name + '_' + self.algo + '_q_eval',
-									chkpt_dir=self.chkpt_dir)
-		self.q_next = DuelingDeepQNetwork(self.input_dims, self.n_actions, self.lr,
-									name=self.env_name + '_' + self.algo + '_q_next',
-									chkpt_dir=self.chkpt_dir)
+		self.q_eval = DuelingDQNetwork(self.input_dims, self.n_actions, self.lr,
+									   name=self.env_name + '_' + self.algo + '_q_eval',
+									   chkpt_dir=self.chkpt_dir)
+		self.q_next = DuelingDQNetwork(self.input_dims, self.n_actions, self.lr,
+									   name=self.env_name + '_' + self.algo + '_q_next',
+									   chkpt_dir=self.chkpt_dir)
 
 	def choose_action(self, observation):
 		if np.random.random() > self.epsilon:

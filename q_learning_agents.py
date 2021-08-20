@@ -453,8 +453,8 @@ class DuelingDoubleDeepQNAgent:
 		V_s_, A_s_ = self.q_next.forward(states_)
 		V_s_eval, A_s_eval = self.q_eval.forward(states_)
 
-		q_pred = T.add(V_s, (A_s - A_s.mean(dim=1, keepsim=True)))[indices, actions]
-		q_next = T.add(V_s_, (A_s_ - A_s_.mean(dim=1, keepsim=True)))
+		q_pred = T.add(V_s, (A_s - A_s.mean(dim=1, keepdim=True)))[indices, actions]
+		q_next = T.add(V_s_, (A_s_ - A_s_.mean(dim=1, keepdim=True)))
 		q_eval = T.add(V_s_eval, (A_s_eval - A_s_eval.mean(dim=1, keepdim=True)))
 
 		max_actions = T.argmax(q_eval, dim=1)

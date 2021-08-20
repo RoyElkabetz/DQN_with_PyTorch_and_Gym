@@ -1,7 +1,7 @@
 import gym
 import numpy as np
 import matplotlib.pyplot as plt
-from q_learning_agent import Agent
+from q_learning_agents import Agent
 
 env = gym.make('FrozenLake-v0')
 n_games = 5000

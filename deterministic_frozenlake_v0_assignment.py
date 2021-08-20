@@ -2,12 +2,14 @@ import gym
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 def det_policy(observation):
 	# [0, 1, 2, 3] = [<, v, >, ^]
 	if observation in [0, 2, 4, 6, 10]:
 		return 1
 	else:
 		return 2
+
 
 env = gym.make('FrozenLake-v0')
 n_games = 10000

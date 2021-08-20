@@ -20,7 +20,7 @@ for i in range(n_games):
     scores.append(score)    
     
     if i % 10 == 0:
-    	scc_prc.append(np.mean(scores[-10:]) * 100)
+        scc_prc.append(np.mean(scores[-10:]) * 100)
 env.close()
 
 plt.figure()

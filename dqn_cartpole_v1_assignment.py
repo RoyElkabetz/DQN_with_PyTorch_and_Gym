@@ -33,7 +33,7 @@ for i in range(n_games):
 		print('| game: {:10d}| score: {:2.2f} | avg_score: {:2.2f} | epsilon: {:2.8f} |'.format(i, score, avg_score, agent.epsilon))
 env.close()
 
-filename = 'cartpole_naive_dqn.png'
+filename = 'plots/cartpole_naive_dqn.png'
 x = [i + 1 for i in range(n_games)]
 plot_learning_curve(x, scores, eps_history, filename)
 		

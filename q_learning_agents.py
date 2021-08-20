@@ -392,10 +392,10 @@ class DuelingDoubleDeepQNAgent:
 
 		self.memory = ReplayBuffer(self.mem_size, self.input_dims, self.n_actions)
 
-		self.q_eval = DeepQNetwork(self.input_dims, self.n_actions, self.lr,
+		self.q_eval = DuelingDeepQNetwork(self.input_dims, self.n_actions, self.lr,
 									name=self.env_name + '_' + self.algo + '_q_eval',
 									chkpt_dir=self.chkpt_dir)
-		self.q_next = DeepQNetwork(self.input_dims, self.n_actions, self.lr,
+		self.q_next = DuelingDeepQNetwork(self.input_dims, self.n_actions, self.lr,
 									name=self.env_name + '_' + self.algo + '_q_next',
 									chkpt_dir=self.chkpt_dir)
 

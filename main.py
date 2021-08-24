@@ -13,7 +13,7 @@ if __name__ == '__main__':
                         help='Discount factor for the update rule')
     parser.add_argument('-epsilon', type=float, default=1.0,
                         help='Initial epsilon value for the epsilon-greedy policy')
-    parser.add_argument('-lr', type=float, default=0.0004,
+    parser.add_argument('-lr', type=float, default=0.0001,
                         help='The learning rate')
     parser.add_argument('-mem_size', type=int, default=20000,
                         help='The maximal memory size used for storing transitions (replay buffer)')  # ~ 6 GB RAM
@@ -33,7 +33,7 @@ if __name__ == '__main__':
                                                  \nSpaceInvadersNoFrameskip-v4 \
                                                  \nEnduroNoFrameskip-v4 \
                                                  \nAtlantisNoFrameskip-v4')
-    parser.add_argument('-path', type=str, default='tmp/',
+    parser.add_argument('-path', type=str, default='models/',
                         help='Path for loading and saving models')
     parser.add_argument('-n_games', type=int, default=1,
                         help='Number of games for the Agent to play')

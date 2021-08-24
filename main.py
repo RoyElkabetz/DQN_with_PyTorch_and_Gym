@@ -21,7 +21,7 @@ if __name__ == '__main__':
                         help='Batch size for learning')
     parser.add_argument('-eps_min', type=float, default=0.1,
                         help='Lower limit for epsilon')
-    parser.add_argument('-eps_dec', type=float, default=5e-7,
+    parser.add_argument('-eps_dec', type=float, default=1e-5,
                         help='Value for epsilon linear decrement')
     parser.add_argument('-replace', type=int, default=1000,
                         help='Number of learning steps for target network replacement')

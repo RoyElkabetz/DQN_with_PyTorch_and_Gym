@@ -1,4 +1,4 @@
-# DQN using PyTorch and Jym
+# DQN variations using PyTorch and Jym
 
 This repo contains a PyTorch written DQN, DDQN, DuelingDQN and DuelingDDQN implementations, following the next Google DeepMind's papers:
 

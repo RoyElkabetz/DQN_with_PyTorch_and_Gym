@@ -1,5 +1,5 @@
 import numpy as np
-from q_learning_agents import DuelingDoubleDeepQNAgent
+from agents import DuelingDDQNAgent
 from utils import plot_learning_curve, make_env
 
 if __name__ == "__main__":
@@ -7,7 +7,7 @@ if __name__ == "__main__":
     best_score = -np.inf
     load_checkpoint = False
     n_games = 300
-    agent = DuelingDoubleDeepQNAgent(gamma=0.99, epsilon=1.0, lr=1e-4,
+    agent = DuelingDDQNAgent(gamma=0.99, epsilon=1.0, lr=1e-4,
                         input_dims=(env.observation_space.shape),
                         n_actions=env.action_space.n,
                         mem_size=10000,

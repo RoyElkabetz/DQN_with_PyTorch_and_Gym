@@ -1,6 +1,5 @@
 import numpy as np
-import gym
-from q_learning_agents import DeepQNAgent
+from agents import DQNAgent
 from utils import plot_learning_curve, make_env
 
 if __name__ == "__main__":
@@ -8,7 +7,7 @@ if __name__ == "__main__":
     best_score = -np.inf
     load_checkpoint = False
     n_games = 500
-    agent = DeepQNAgent(gamma=0.99, epsilon=1.0, lr=1e-4,
+    agent = DQNAgent(gamma=0.99, epsilon=1.0, lr=1e-4,
                         input_dims=(env.observation_space.shape),
                         n_actions=env.action_space.n,
                         mem_size=20000,

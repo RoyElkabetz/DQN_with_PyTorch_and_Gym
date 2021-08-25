@@ -6,6 +6,18 @@ This repo contains a PyTorch written DQN, DDQN, DuelingDQN and DuelingDDQN imple
 - [Deep Reinforcement Learning with Double Q-learning](https://arxiv.org/abs/1509.06461) (2015)
 - [Dueling Network Architectures for Deep Reinforcement Learning](https://arxiv.org/abs/1511.06581) (2016)
 
+## Background
+
+## Prerequisites and ROM installation
+
+## Files Description
+
+## API
+
+## Train 
+
+## Play
+
 
 
  

@@ -70,7 +70,7 @@ You should run the `main.py` file with the following arguments:
 |`-replace`          | Number of learning steps for target network replacement, default=1000                                        |
 |`-algo`             | choose from the next algorithms: `DQNAgent`, `DDQNAgent`, `DuelingDQNAgent`, `DuelingDDQNAgent`, default=`DQNAgent`|
 |`-env_name`         | choose from the next Atari environments: `PongNoFrameskip-v4`, `BreakoutNoFrameskip-v4`, `SpaceInvadersNoFrameskip-v4`, `EnduroNoFrameskip-v4`, `AtlantisNoFrameskip-v4`, default=`PongNoFrameskip-v4`        |
-|`-path`             | Path for loading and saving models, default=models/                                                             |
+|`-path`             | Path for loading and saving models, default='models/'                                                             |
 |`-n_games`          | Number of games for the Agent to play, default=1                                                          |
 |`-skip`             | Number of environment frames to stack, default=4                                                          |
 |`-gpu`              | CPU: '0', GPU: '1', default='0'                                                                                 |
@@ -79,9 +79,13 @@ You should run the `main.py` file with the following arguments:
 |`-monitor`          | If True, a video is being saved for each episode, default=False                                               |
 
 
-## Training
-
-## Playing
+## Training and Playing
+- Example 1: Training a DuelingDDQN agent from scratch for 400 games
+`python main.py -n_games 400 -algo 'DuelingDDQN'`
+- Example 2: Training a DDQN agent from checkpoint (if exist) for 30 games with small epsilon and batch size of 64
+`python main.py -n_games 30 -algo 'DDQN' -load_checkpoint True -epsilon 0.2 -bs 64`
+- Example 3: Playing 10 games with a saved DQN agent checkpoint, monitor to screen and save as a video
+`python main.py -n_games 10 -algo 'DQN' -load_checkpoint True -epsilon 0.0 -eps_min 0.0 -render True -monitor True`
 
 ## Reference
 

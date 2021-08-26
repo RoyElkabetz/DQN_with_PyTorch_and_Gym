@@ -7,6 +7,7 @@ This repo contains a PyTorch written DQN, DDQN, DuelingDQN and DuelingDDQN imple
 - [Dueling Network Architectures for Deep Reinforcement Learning](https://arxiv.org/abs/1511.06581) (2016)
 
 ## Background
+In the first paper above (Human-level control through deep reinforcement learning) the authors set the next goal *"We set out to create a single algorithm that would be able to develop a wide range of competencies on a varied range of challenging tasks — a central goal of general artificial intelligence"*.
 
 ## Prerequisites and ROM installation
 
@@ -18,6 +19,7 @@ This repo contains a PyTorch written DQN, DDQN, DuelingDQN and DuelingDDQN imple
 
 ## Play
 
+## Reference
 
 
  

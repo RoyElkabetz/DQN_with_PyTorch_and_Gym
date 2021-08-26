@@ -26,9 +26,19 @@ if __name__ == '__main__':
     parser.add_argument('-replace', type=int, default=1000,
                         help='Number of learning steps for target network replacement')
     parser.add_argument('-algo', type=str, default='DQNAgent',
-                        help='DQNAgent/DDQNAgent/DuelingDQNAgent/DuelingDDQNAgent')
+                        choices=['DQNAgent',
+                                 'DDQNAgent',
+                                 'DuelingDQNAgent',
+                                 'DuelingDDQNAgent'],
+                        help='choose from the next DQNAgent/DDQNAgent/DuelingDQNAgent/DuelingDDQNAgent')
     parser.add_argument('-env_name', type=str, default='PongNoFrameskip-v4',
-                        help='Atari environments.\nPongNoFrameskip-v4 \
+                        choices=['PongNoFrameskip-v4',
+                                 'BreakoutNoFrameskip-v4',
+                                 'SpaceInvadersNoFrameskip-v4',
+                                 'EnduroNoFrameskip-v4',
+                                 'AtlantisNoFrameskip-v4'],
+                        help='choose from the next Atari environments:\
+                                                 \nPongNoFrameskip-v4 \
                                                  \nBreakoutNoFrameskip-v4 \
                                                  \nSpaceInvadersNoFrameskip-v4 \
                                                  \nEnduroNoFrameskip-v4 \

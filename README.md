@@ -11,6 +11,14 @@ In the first paper above (Human-level control through deep reinforcement learnin
 
 ## Requirements and ROM installation
 
+|Package         | Version |
+|----------------|---------|
+|`Python`        |  `3.8`  |
+|`torch`         |  `1.8.1`|
+|`gym`           | `0.18.3`|
+|`numpy`         | `1.19.5`|
+
+
 ## Files Description
 
 ## API

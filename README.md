@@ -58,18 +58,25 @@ Note: if your default python version is different from the one you will be using
 
 You should run the `main.py` file with the following arguments:
 
-|Argument             | Description                                 |
-|---------------------|---------------------------------------------|
-|`-gamma`          | Discount factor for the update rule         |
-|`-epsilon`        | Initial epsilon value for the epsilon-greedy policy         |
-|`-lr`             | The DQN training learning rate         |
-|`-mem_size`       | The maximal memory size used for storing transitions (replay buffer) - 20000 ~ 6 GB RAM         |
-|`-bs`             | Batch size for sampling from the replay buffer          |
-|`-eps_min`        | Lower limit for epsilon          |
-|`-eps_dec`        | Value for epsilon linear decrement          |
-|`-replace`        | Number of learning steps for target network replacement         |
-|`-algo`           | choose from the next algorithms: `DQNAgent`, `DDQNAgent`, `DuelingDQNAgent`, `DuelingDDQNAgent`         |
-|`-env_name`       | choose from the next Atari environments: `PongNoFrameskip-v4`, `BreakoutNoFrameskip-v4`, `SpaceInvadersNoFrameskip-v4`, `EnduroNoFrameskip-v4`, `AtlantisNoFrameskip-v4`        |
+|Argument             | Description                                                                                   |
+|---------------------|-----------------------------------------------------------------------------------------------|
+|`-gamma`            | Discount factor for the update rule                                                            |
+|`-epsilon`          | Initial epsilon value for the epsilon-greedy policy                                            |
+|`-lr`               | The DQN training learning rate                                                                 |
+|`-mem_size`         | The maximal memory size used for storing transitions (replay buffer) - 20000 ~ 6 GB RAM        |
+|`-bs`               | Batch size for sampling from the replay buffer                                                 |
+|`-eps_min`          | Lower limit for epsilon                                                                        |
+|`-eps_dec`          | Value for epsilon linear decrement                                                             |
+|`-replace`          | Number of learning steps for target network replacement                                        |
+|`-algo`             | choose from the next algorithms: `DQNAgent`, `DDQNAgent`, `DuelingDQNAgent`, `DuelingDDQNAgent`|
+|`-env_name`         | choose from the next Atari environments: `PongNoFrameskip-v4`, `BreakoutNoFrameskip-v4`, `SpaceInvadersNoFrameskip-v4`, `EnduroNoFrameskip-v4`, `AtlantisNoFrameskip-v4`        |
+|`-path`             | Path for loading and saving models        |
+|`-n_games`          | Number of games for the Agent to play        |
+|`-skip`             | Number of environment frames to stack        |
+|`-gpu`              | CPU: 0, GPU: 1        |
+|`-load_checkpoint`  | Load a model checkpoint        |
+|`-render`           | Render the game to screen ? True/False        |
+|`-monitor`          | If True, a video is being saved for each episode       |
 
 
 ## Train 

@@ -31,14 +31,26 @@ Note: if your default python version is different from the one you will be using
 
 ## Folders and Files Description
 
-|File name         |                     Description                                         |
-|----------------------|------|
-|`main.py`| general main application for training/playing a DQN based agent|
-|`agents.py`| containing classes of DQN, DDQN, DuelingDQN and DuelingDDQN agents|
-|`networks.py`| networks in used by agents |
-|`utils.py`| utility functions|
-|`replay_memory.py`| replay buffer class |
-|`dqn_main.ipynb`| general main application in a notebook format for training/playing |
+### Folders
+
+|Folder name       |                     Description                                    |
+|------------------|--------------------------------------------------------------------|
+|`models`          | saved checkpoints of DQN networks                                  |
+|`papers `         | pdf files of the three papers my code is based on                  |
+|`plots`           | plots of learning curves                                           |
+|`scores`          | saved .npy score files                                             |
+|`videos`          | saved videos of the agents playing                                 |
+
+### Files
+
+|File name         |                     Description                                    |
+|------------------|--------------------------------------------------------------------|
+|`main.py`         | general main application for training/playing a DQN based agent    |
+|`agents.py`       | containing classes of DQN, DDQN, DuelingDQN and DuelingDDQN agents |
+|`networks.py`     | networks in used by agents                                         |
+|`utils.py`        | utility functions                                                  |
+|`replay_memory.py`| replay buffer class, used for training the DQN agent               |
+|`dqn_main.ipynb`  | general main application in a notebook format for training/playing |
 
 
 

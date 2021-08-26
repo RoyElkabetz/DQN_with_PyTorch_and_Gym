@@ -70,13 +70,13 @@ You should run the `main.py` file with the following arguments:
 |`-replace`          | Number of learning steps for target network replacement                                        |
 |`-algo`             | choose from the next algorithms: `DQNAgent`, `DDQNAgent`, `DuelingDQNAgent`, `DuelingDDQNAgent`|
 |`-env_name`         | choose from the next Atari environments: `PongNoFrameskip-v4`, `BreakoutNoFrameskip-v4`, `SpaceInvadersNoFrameskip-v4`, `EnduroNoFrameskip-v4`, `AtlantisNoFrameskip-v4`        |
-|`-path`             | Path for loading and saving models        |
-|`-n_games`          | Number of games for the Agent to play        |
-|`-skip`             | Number of environment frames to stack        |
-|`-gpu`              | CPU: 0, GPU: 1        |
-|`-load_checkpoint`  | Load a model checkpoint        |
-|`-render`           | Render the game to screen ? True/False        |
-|`-monitor`          | If True, a video is being saved for each episode       |
+|`-path`             | Path for loading and saving models                                                             |
+|`-n_games`          | Number of games for the Agent to play                                                          |
+|`-skip`             | Number of environment frames to stack                                                          |
+|`-gpu`              | CPU: 0, GPU: 1                                                                                 |
+|`-load_checkpoint`  | Load a model checkpoint                                                                        |
+|`-render`           | Render the game to screen ? True/False                                                         |
+|`-monitor`          | If True, a video is being saved for each episode                                               |
 
 
 ## Train 

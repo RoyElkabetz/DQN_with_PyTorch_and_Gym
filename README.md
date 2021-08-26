@@ -88,11 +88,15 @@ You should run the `main.py` file with the following arguments:
 
 `python main.py -n_games 30 -algo 'DDQN' -load_checkpoint True -epsilon 0.2 -bs 64`
 
-- Playing 10 games with a saved DQN agent checkpoint, monitor to screen and save as a video
+- Playing 10 games with a saved DQN agent checkpoint, render to screen and save as a video
 
 `python main.py -n_games 10 -algo 'DQN' -load_checkpoint True -epsilon 0.0 -eps_min 0.0 -render True -monitor True`
 
 ## Reference
 
+[1]  [Human-level control through deep reinforcement learning](https://www.nature.com/articles/nature14236) (2015)
+[2]  [Deep Reinforcement Learning with Double Q-learning](https://arxiv.org/abs/1509.06461) (2015)
+[3]  [Dueling Network Architectures for Deep Reinforcement Learning](https://arxiv.org/abs/1511.06581) (2016)
+[4]  [Modern Reinforcement Learning: Deep Q Learning in PyTorch Course - Phil Tabor](https://www.udemy.com/course/deep-q-learning-from-paper-to-code/)
 
  

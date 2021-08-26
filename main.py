@@ -79,7 +79,7 @@ if __name__ == '__main__':
 
     fname = agent.algo + '_' + agent.env_name + '_lr_' + str(agent.lr) + '_' + str(args.n_games) + '_games'
     figure_file = 'plots/' + fname + '.png'
-    scores_file = fname + '_scores.npy'
+    scores_file = 'scores/' + fname + '_scores.npy'
 
     n_steps = 0
     scores, eps_history, steps_array = [], [], []

@@ -60,28 +60,28 @@ You should run the `main.py` file with the following arguments:
 
 |Argument             | Description                                                                                   |
 |---------------------|-----------------------------------------------------------------------------------------------|
-|`-gamma`            | Discount factor for the update rule                                                            |
-|`-epsilon`          | Initial epsilon value for the epsilon-greedy policy                                            |
-|`-lr`               | The DQN training learning rate                                                                 |
-|`-mem_size`         | The maximal memory size used for storing transitions (replay buffer) - 20000 ~ 6 GB RAM        |
-|`-bs`               | Batch size for sampling from the replay buffer                                                 |
-|`-eps_min`          | Lower limit for epsilon                                                                        |
-|`-eps_dec`          | Value for epsilon linear decrement                                                             |
-|`-replace`          | Number of learning steps for target network replacement                                        |
-|`-algo`             | choose from the next algorithms: `DQNAgent`, `DDQNAgent`, `DuelingDQNAgent`, `DuelingDDQNAgent`|
-|`-env_name`         | choose from the next Atari environments: `PongNoFrameskip-v4`, `BreakoutNoFrameskip-v4`, `SpaceInvadersNoFrameskip-v4`, `EnduroNoFrameskip-v4`, `AtlantisNoFrameskip-v4`        |
-|`-path`             | Path for loading and saving models                                                             |
-|`-n_games`          | Number of games for the Agent to play                                                          |
-|`-skip`             | Number of environment frames to stack                                                          |
-|`-gpu`              | CPU: 0, GPU: 1                                                                                 |
-|`-load_checkpoint`  | Load a model checkpoint                                                                        |
-|`-render`           | Render the game to screen ? True/False                                                         |
-|`-monitor`          | If True, a video is being saved for each episode                                               |
+|`-gamma`            | Discount factor for the update rule, default=0.99                                                            |
+|`-epsilon`          | Initial epsilon value for the epsilon-greedy policy, default=1.0                                            |
+|`-lr`               | The DQN training learning rate, default=0.0001                                                                 |
+|`-mem_size`         | The maximal memory size used for storing transitions (replay buffer), default=20000 (~ 6 GB RAM)        |
+|`-bs`               | Batch size for sampling from the replay buffer, default=32                                                 |
+|`-eps_min`          | Lower limit for epsilon, default=0.1                                                                        |
+|`-eps_dec`          | Value for epsilon linear decrement, default=1e-5                                                             |
+|`-replace`          | Number of learning steps for target network replacement, default=1000                                        |
+|`-algo`             | choose from the next algorithms: `DQNAgent`, `DDQNAgent`, `DuelingDQNAgent`, `DuelingDDQNAgent`, default=`DQNAgent`|
+|`-env_name`         | choose from the next Atari environments: `PongNoFrameskip-v4`, `BreakoutNoFrameskip-v4`, `SpaceInvadersNoFrameskip-v4`, `EnduroNoFrameskip-v4`, `AtlantisNoFrameskip-v4`, default=`PongNoFrameskip-v4`        |
+|`-path`             | Path for loading and saving models, default=models/                                                             |
+|`-n_games`          | Number of games for the Agent to play, default=1                                                          |
+|`-skip`             | Number of environment frames to stack, default=4                                                          |
+|`-gpu`              | CPU: '0', GPU: '1', default='0'                                                                                 |
+|`-load_checkpoint`  | Load a model checkpoint, default=False                                                                        |
+|`-render`           | Render the game to screen ? True/False, default=False                                                         |
+|`-monitor`          | If True, a video is being saved for each episode, default=False                                               |
 
 
-## Train 
+## Training
 
-## Play
+## Playing
 
 ## Reference
 

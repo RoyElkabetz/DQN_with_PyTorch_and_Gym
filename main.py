@@ -9,6 +9,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Deep Q learning algorithms implementation')
 
     # Arguments
+    parser.add_argument('-train', type=bool, default=False,
+                        choices=[True, False],
+                        help='Choosing the mode of the agent, True for training or False for playing.')
     parser.add_argument('-gamma', type=float, default=0.99,
                         help='Discount factor for the update rule')
     parser.add_argument('-epsilon', type=float, default=1.0,
@@ -81,19 +84,44 @@ if __name__ == '__main__':
                    env_name=args.env_name,
                    chkpt_dir=args.path)
 
-    if args.load_checkpoint:
-        agent.load_models()
-
     if args.monitor:
         env = wrappers.Monitor(env, 'videos/', video_callable=lambda episode_id: True, force=True)
 
+    # create name strings for saving data
     fname = agent.algo + '_' + agent.env_name + '_lr_' + str(agent.lr) + '_' + str(args.n_games) + '_games'
     figure_file = 'plots/' + fname + '.png'
     scores_file = 'scores/' + fname + '_scores.npy'
+    steps_file = 'scores/' + fname + '_steps.npy'
+    eps_history_file = 'scores/' + fname + '_eps_history.npy'
 
     n_steps = 0
+    games_played = 0
     scores, eps_history, steps_array = [], [], []
-    for i in range(args.n_games):
+
+    if args.load_checkpoint:
+        # load Q models
+        agent.load_models()
+
+        if args.train:
+            # load old scores and related data
+            with np.load(scores_file) as scores_data:
+                scores = list(scores_data)
+                games_played = len(scores)
+                for t in range(len(scores)):
+                    t_avg_score = np.mean(scores[np.max([0, t - 100]):(t + 1)])
+                    if t_avg_score > best_score:
+                        best_score = t_avg_score
+
+            with np.load(steps_file) as steps_data:
+                steps_array = list(steps_data)
+                n_steps = steps_data[-1]
+
+            with np.load(eps_history_file) as eps_data:
+                eps_history = list(eps_data)
+                agent.epsilon = eps_history[-1]
+
+    # training / playing
+    for i in range(games_played, args.n_games + games_played):
         done = False
         score = 0
         observation = env.reset()
@@ -103,7 +131,7 @@ if __name__ == '__main__':
             score += reward
             if args.render:
                 env.render()
-            if not args.load_checkpoint:
+            if args.train:
                 agent.store_transition(observation, action, reward, observation_, int(done))
                 agent.learn()
 
@@ -111,16 +139,22 @@ if __name__ == '__main__':
             n_steps += 1
         scores.append(score)
         steps_array.append(n_steps)
+        eps_history.append(agent.epsilon)
 
         avg_score = np.mean(scores[-100:])
-        print('episode ', i, 'score: ', score, 'average score %.1f best score %.1f epsilon %.2f' %
+        print('episode ', i, 'score: ', score, 'average score %.1f best average score %.1f epsilon %.2f' %
               (avg_score, best_score, agent.epsilon), 'steps ', n_steps)
 
         if avg_score > best_score:
-            if not args.load_checkpoint:
+            if args.train:
                 agent.save_models()
             best_score = avg_score
 
-        eps_history.append(agent.epsilon)
-    np.save(scores_file, np.array(scores))
-    plot_learning_curve(steps_array, scores, eps_history, figure_file)
+    # save training data
+    if args.train:
+        np.save(scores_file, np.array(scores))
+        np.save(steps_file, np.array(steps_array))
+        np.save(eps_history_file, np.array(eps_history))
+
+        # plot the learning curve
+        plot_learning_curve(steps_array, scores, eps_history, figure_file)

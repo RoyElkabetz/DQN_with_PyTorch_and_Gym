@@ -112,7 +112,7 @@ You should run the `main.py` file with the following arguments:
 
 [3]  [Dueling Network Architectures for Deep Reinforcement Learning](https://arxiv.org/abs/1511.06581) (2016)
 
-[4]  [Modern Reinforcement Learning: Deep Q Learning in PyTorch Course - Phil Tabor](https://www.udemy.com/course/deep-q-learning-from-paper-to-code/)
+[4]  [Modern Reinforcement Learning: Deep Q Learning in PyTorch Course - Phil Tabor](https://www.udemy.com/course/deep-q-learning-from-paper-to-code/) (great comprehensive course about DQN algorithms)
 
 
  

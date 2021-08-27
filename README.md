@@ -40,7 +40,7 @@ Note: if your default python version is different from the one you will be using
 |`models`          | saved checkpoints of DQN networks                                  |
 |`papers `         | pdf files of the three papers my code is based on                  |
 |`plots`           | plots of learning curves                                           |
-|`scores`          | saved .npy score files                                             |
+|`scores`          | saved .npy scores, epsilon and steps files                         |
 |`videos`          | saved videos of the agents playing                                 |
 
 ### Files
@@ -63,23 +63,23 @@ You should run the `main.py` file with the following arguments:
 |Argument             | Description                                                                                   |
 |---------------------|-----------------------------------------------------------------------------------------------|
 |`-train`             | Determine the agents mode, True=training or False=playing, default=False                      |
-|`-gamma`             | Discount factor for the update rule, default=0.99                                                            |
-|`-epsilon`           | Initial epsilon value for the epsilon-greedy policy, default=1.0                                            |
-|`-lr`                | The DQN training learning rate, default=0.0001                                                                 |
-|`-mem_size`          | The maximal memory size used for storing transitions (replay buffer), default=20000 (~ 6 GB RAM)        |
-|`-bs`                | Batch size for sampling from the replay buffer, default=32                                                 |
-|`-eps_min`           | Lower limit for epsilon, default=0.1                                                                        |
-|`-eps_dec`           | Value for epsilon linear decrement, default=1e-5                                                             |
-|`-replace`           | Number of learning steps for target network replacement, default=1000                                        |
+|`-gamma`             | Discount factor for the update rule, default=0.99                                             |
+|`-epsilon`           | Initial epsilon value for the epsilon-greedy policy, default=1.0                              |
+|`-lr`                | The DQN training learning rate, default=0.0001                                                |
+|`-mem_size`          | The maximal memory size used for storing transitions (replay buffer), default=20000 (~ 6 GB RAM) |
+|`-bs`                | Batch size for sampling from the replay buffer, default=32                                    |
+|`-eps_min`           | Lower limit for epsilon, default=0.1                                                          |
+|`-eps_dec`           | Value for epsilon linear decrement, default=1e-5                                              |
+|`-replace`           | Number of learning steps for target network replacement, default=1000                         |
 |`-algo`              | choose from the next algorithms: `DQNAgent`, `DDQNAgent`, `DuelingDQNAgent`, `DuelingDDQNAgent`, default=`DQNAgent`|
 |`-env_name`          | choose from the next Atari environments: `PongNoFrameskip-v4`, `BreakoutNoFrameskip-v4`, `SpaceInvadersNoFrameskip-v4`, `EnduroNoFrameskip-v4`, `AtlantisNoFrameskip-v4`, default=`PongNoFrameskip-v4`        |
-|`-path`              | Path for loading and saving models, default='models/'                                                             |
-|`-n_games`           | Number of games for the Agent to play, default=1                                                          |
-|`-skip`              | Number of environment frames to stack, default=4                                                          |
-|`-gpu`               | CPU: '0', GPU: '1', default='0'                                                                                 |
-|`-load_checkpoint`   | Load a model checkpoint, default=False                                                                        |
-|`-render`            | Render the game to screen ? True/False, default=False                                                         |
-|`-monitor`           | If True, a video is being saved for each episode, default=False                                               |
+|`-path`              | Path for loading and saving models, default='models/'                                         |
+|`-n_games`           | Number of games for the Agent to play, default=1                                              |
+|`-skip`              | Number of environment frames to stack, default=4                                              |
+|`-gpu`               | CPU: '0', GPU: '1', default='0'                                                               |
+|`-load_checkpoint`   | Load a model checkpoint, default=False                                                        |
+|`-render`            | Render the game to screen ? True/False, default=False                                         |
+|`-monitor`           | If True, a video is being saved for each episode, default=False                               |
 
 
 ## Training and Playing

@@ -2,6 +2,7 @@ import argparse, os
 import gym
 from gym import wrappers
 import numpy as np
+import copy as cp
 from utils import plot_learning_curve, make_env
 import agents as Agents
 
@@ -88,11 +89,10 @@ if __name__ == '__main__':
         env = wrappers.Monitor(env, 'videos/', video_callable=lambda episode_id: True, force=True)
 
     # create name strings for saving data
-    fname = agent.algo + '_' + agent.env_name + '_lr_' + str(agent.lr) + '_' + str(args.n_games) + '_games'
-    figure_file = 'plots/' + fname + '.png'
-    scores_file = 'scores/' + fname + '_scores.npy'
-    steps_file = 'scores/' + fname + '_steps.npy'
-    eps_history_file = 'scores/' + fname + '_eps_history.npy'
+    fname = agent.algo + '_' + agent.env_name + '_lr_' + str(agent.lr)
+    scores_file = 'scores/' + fname + '_scores'
+    steps_file = 'scores/' + fname + '_steps'
+    eps_history_file = 'scores/' + fname + '_eps_history'
 
     n_steps = 0
     games_played = 0
@@ -104,21 +104,23 @@ if __name__ == '__main__':
 
         if args.train:
             # load old scores and related data
-            with np.load(scores_file) as scores_data:
-                scores = list(scores_data)
-                games_played = len(scores)
-                for t in range(len(scores)):
-                    t_avg_score = np.mean(scores[np.max([0, t - 100]):(t + 1)])
-                    if t_avg_score > best_score:
-                        best_score = t_avg_score
+            scores = np.load(scores_file + '.npy')
+            scores = list(scores)
+            games_played = len(scores)
+            for t in range(len(scores)):
+                t_avg_score = np.mean(scores[np.max([0, t - 100]):(t + 1)])
+                if t_avg_score > best_score:
+                    best_score = t_avg_score
 
-            with np.load(steps_file) as steps_data:
-                steps_array = list(steps_data)
-                n_steps = steps_data[-1]
+            steps_array = np.load(steps_file + '.npy')
+            steps_array = list(steps_array)
+            n_steps = cp.copy(steps_array[-1])
 
-            with np.load(eps_history_file) as eps_data:
-                eps_history = list(eps_data)
-                agent.epsilon = eps_history[-1]
+            eps_history = np.load(eps_history_file + '.npy')
+            eps_history = list(eps_history)
+            agent.epsilon = cp.copy(eps_history[-1])
+
+    figure_file = 'plots/' + fname + '_' + str(games_played + args.n_games) + '_games' + '.png'
 
     # training / playing
     for i in range(games_played, args.n_games + games_played):

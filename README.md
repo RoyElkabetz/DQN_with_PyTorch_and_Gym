@@ -27,7 +27,7 @@ After installing the gym library, in order to render the games from the Atari li
 3. Open a Terminal window.
 4. Run the next command in the terminal ```python -m atari_py.import_roms path_to_folder\ROMS```
 
-Example: '''python -m atari_py.import_roms C:\Users\ME\Downloads\Roms\ROMS'''
+Example: ```python -m atari_py.import_roms C:\Users\ME\Downloads\Roms\ROMS```
 
 Note: if your default python version is different from the one you will be using in working with gym (i.e python 2 as default but you will be using python 3 ,use `python3` instead of `python` in step (4)).
 

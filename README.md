@@ -25,9 +25,15 @@ After installing the gym library, in order to render the games from the Atari li
 1. Download and save the Atari ROM files from the next [url](http://www.atarimania.com/rom_collection_archive_atari_2600_roms.html).
 2. Extract from the downloaded `Roms.rar` file the two zip files `HC ROMS.zip` and `ROMS.zip`.
 3. Open a Terminal window.
-4. Run the next command in the terminal `python -m atari_py.import_roms path_to_folder\ROMS`
+4. Run the next command in the terminal 
+```text
+python -m atari_py.import_roms path_to_folder\ROMS
+```
 
-Example: `python -m atari_py.import_roms C:\Users\ME\Downloads\Roms\ROMS`
+Example: 
+```text
+python -m atari_py.import_roms C:\Users\ME\Downloads\Roms\ROMS
+```
 
 Note: if your default python version is different from the one you will be using in working with gym (i.e python 2 as default but you will be using python 3 ,use `python3` instead of `python` in step (4)).
 
@@ -85,19 +91,27 @@ You should run the `main.py` file with the following arguments:
 ## Training and Playing
 - Training a DuelingDDQN agent from scratch for 400 games
 
-`python main.py -n_games 400 -algo 'DuelingDDQN' -train True` 
+```text
+python main.py -n_games 400 -algo 'DuelingDDQN' -train True
+``` 
 
 - Training a DDQN agent from checkpoint (if exist) for 30 games with epsilon=0.2 and batch size of 64
 
-`python main.py -n_games 30 -algo 'DDQN' -load_checkpoint True -epsilon 0.2 -bs 64 -train True`
+```text
+python main.py -n_games 30 -algo 'DDQN' -load_checkpoint True -epsilon 0.2 -bs 64 -train True
+```
 
 - Playing 10 games with a saved DQN agent checkpoint using a deterministic policy (epsilon=0), render to screen and save as a video
 
-`python main.py -n_games 10 -algo 'DQN' -load_checkpoint True -epsilon 0.0 -eps_min 0.0 -render True -monitor True`
+```text
+python main.py -n_games 10 -algo 'DQN' -load_checkpoint True -epsilon 0.0 -eps_min 0.0 -render True -monitor True
+```
 
 - Playing 5 games with an untrained DuelingDQN agent using an epsilon-greedy policy with epsilon=0.2 and render to screen
 
-`python main.py -n_games 5 -algo 'DuelingDQN' -epsilon 0.2 -eps_dec 0.0 -render True -monitor True`
+```text
+python main.py -n_games 5 -algo 'DuelingDQN' -epsilon 0.2 -eps_dec 0.0 -render True -monitor True
+```
 
 **Notes:**
 - If training from checkpoint, the agent also upload previous saved scores, steps and epsilon arrays, such that the training process continues from where it stopped.

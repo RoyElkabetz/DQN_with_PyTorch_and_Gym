@@ -151,6 +151,7 @@ if __name__ == '__main__':
             if args.train:
                 agent.save_models()
             best_score = avg_score
+    env.close()
 
     # save training data
     if args.train:

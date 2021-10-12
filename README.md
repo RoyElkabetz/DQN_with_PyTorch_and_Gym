@@ -92,25 +92,25 @@ You should run the `main.py` file with the following arguments:
 - Training a DuelingDDQN agent from scratch for 400 games
 
 ```text
-python main.py -n_games 400 -algo 'DuelingDDQN' -train True
+python main.py -n_games 400 -algo 'DuelingDDQNAgent' -train True
 ``` 
 
 - Training a DDQN agent from checkpoint (if exist) for 30 games with epsilon=0.2 and batch size of 64
 
 ```text
-python main.py -n_games 30 -algo 'DDQN' -load_checkpoint True -epsilon 0.2 -bs 64 -train True
+python main.py -n_games 30 -algo 'DDQNAgent' -load_checkpoint True -epsilon 0.2 -bs 64 -train True
 ```
 
 - Playing 10 games with a saved DQN agent checkpoint using a deterministic policy (epsilon=0), render to screen and save as a video
 
 ```text
-python main.py -n_games 10 -algo 'DQN' -load_checkpoint True -epsilon 0.0 -eps_min 0.0 -render True -monitor True
+python main.py -n_games 10 -algo 'DQNAgent' -load_checkpoint True -epsilon 0.0 -eps_min 0.0 -render True -monitor True
 ```
 
 - Playing 5 games with an untrained DuelingDQN agent using an epsilon-greedy policy with epsilon=0.2 and render to screen
 
 ```text
-python main.py -n_games 5 -algo 'DuelingDQN' -epsilon 0.2 -eps_dec 0.0 -render True -monitor True
+python main.py -n_games 5 -algo 'DuelingDQNAgent' -epsilon 0.2 -eps_dec 0.0 -render True -monitor True
 ```
 
 **Notes:**
